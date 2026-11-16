@@ -1,0 +1,48 @@
+# ===========================================================================
+#  Grundeinstellungen für den Gruppen-Bot
+#
+#  Normalerweise musst du hier NICHTS ändern.
+#  Die Regeln für die Themen stellst du direkt in Telegram ein (Befehl /regeln).
+# ===========================================================================
+
+# Der Bot-Token kommt in die Datei token.txt (macht das Einrichtungs-Skript).
+token: ""
+
+# Leer lassen = Bot arbeitet in jeder Gruppe, in der er Admin ist.
+# Sonst Liste von Gruppen-IDs, z. B. [-1001234567890]
+nur_diese_gruppen: []
+
+# Wie viele Sekunden der Hinweis "deine Nachricht wurde entfernt" stehen bleibt.
+# 0 = gar kein Hinweis.
+hinweis_sekunden: 10
+
+pruefung:
+  aktiv: true
+  zeit_minuten: 5               # so lange hat man Zeit, sonst wird man entfernt
+  max_falsche_antworten: 2
+  regeln_thema: regeln          # Name des Themas mit den Regeln (für den Link)
+  willkommen_thema: general     # in welchem Thema die Begrüßung erscheint
+  erfolg_nachricht_sekunden: 30 # "XY ist freigeschaltet" – so lange sichtbar (0 = aus)
+
+meldungen:
+  aktiv: true
+  an_admins_privat: true        # jeder Admin muss den Bot 1x privat starten
+  meldungen_chat_id: ""         # optional: ID einer eigenen Admin-Gruppe
+  sperre_sekunden: 60           # so oft darf ein Mitglied höchstens melden
+
+# ---------------------------------------------------------------------------
+#  Start-Regeln nach Themen-Namen (gelten in allen Gruppen).
+#  Was du in Telegram mit /regeln einstellst, hat Vorrang.
+#  Groß/klein und Emojis im Themen-Namen sind egal ("📸 Fotos" = "fotos").
+# ---------------------------------------------------------------------------
+vorlagen:
+  general:        {nur_admins: true}
+  regeln:         {nur_admins: true}
+  chat:           {erlaubt: [text, foto]}
+  rp anfragen:    {erlaubt: [text]}
+  dm anfragen:    {erlaubt: [text]}
+  risk and catch: {erlaubt: [text, foto, video]}
+  links:          {erlaubt: [text]}
+  fotos:          {erlaubt: [foto]}
+  videos:         {erlaubt: [video]}
+  vorschläge:     {erlaubt: [text, foto]}

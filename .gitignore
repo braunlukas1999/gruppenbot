@@ -1,0 +1,5 @@
+token.txt
+daten.json
+daten.tmp
+venv/
+__pycache__/

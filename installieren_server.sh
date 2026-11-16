@@ -6,10 +6,12 @@ set -e
 cd "$(dirname "$0")"
 DIR="$(pwd)"
 export DEBIAN_FRONTEND=noninteractive
-apt-get update -y
-apt-get install -y python3 python3-venv git
+# Beim ersten Start installiert Ubuntu oft selbst Updates. Dann warten wir, statt abzubrechen.
+APT="apt-get -o DPkg::Lock::Timeout=900"
+for i in 1 2 3; do $APT update -y && break; sleep 20; done
+for i in 1 2 3; do $APT install -y python3 python3-venv python3-pip git && break; sleep 20; done
 python3 -m venv venv
-venv/bin/pip install -r requirements.txt
+for i in 1 2 3; do venv/bin/pip install -r requirements.txt && break; sleep 20; done
 cat > /etc/systemd/system/gruppenbot.service <<UNIT
 [Unit]
 Description=Telegram Gruppen-Bot

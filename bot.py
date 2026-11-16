@@ -982,7 +982,15 @@ def main():
     if not token or "HIER" in token.upper():
         raise SystemExit("❌ Bitte zuerst den Bot-Token in token.txt oder config.yaml eintragen (siehe Anleitung).")
 
-    app = Application.builder().token(token).build()
+    async def post_init(application: Application):
+        # Zeigt im Bot-Profil an, dass er läuft (hilft beim Einrichten ohne PC)
+        try:
+            await application.bot.set_my_short_description(
+                f"✅ Gruppen-Bot läuft (seit {time.strftime('%d.%m. %H:%M')})")
+        except TelegramError:
+            pass
+
+    app = Application.builder().token(token).post_init(post_init).build()
     app.bot_data["config"] = config
     app.bot_data["data"] = load_data()
 
